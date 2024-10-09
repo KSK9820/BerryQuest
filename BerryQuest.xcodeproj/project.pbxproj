@@ -12,6 +12,13 @@
 		530071572CB67745003C035D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 530071562CB67745003C035D /* Assets.xcassets */; };
 		5300715A2CB67745003C035D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 530071592CB67745003C035D /* Preview Assets.xcassets */; };
 		538E6F172CB6780900070B32 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 538E6F162CB6780900070B32 /* .gitignore */; };
+		538E6F1C2CB67B5B00070B32 /* HTTPRequestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538E6F1B2CB67B5B00070B32 /* HTTPRequestable.swift */; };
+		538E6F1F2CB67C5100070B32 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538E6F1E2CB67C5100070B32 /* NetworkError.swift */; };
+		538E6F212CB67C9200070B32 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538E6F202CB67C9200070B32 /* HTTPMethod.swift */; };
+		538E6F232CB67CD600070B32 /* PocketmonRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538E6F222CB67CD600070B32 /* PocketmonRequest.swift */; };
+		538E6F282CB6813C00070B32 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538E6F272CB6813C00070B32 /* NetworkManager.swift */; };
+		53B732022CB6C05B00D18FAB /* PocketmonResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B732012CB6C05B00D18FAB /* PocketmonResponse.swift */; };
+		53B732042CB6C07100D18FAB /* PocketmonInformationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B732032CB6C07100D18FAB /* PocketmonInformationResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +28,15 @@
 		530071562CB67745003C035D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		530071592CB67745003C035D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		538E6F162CB6780900070B32 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		538E6F1B2CB67B5B00070B32 /* HTTPRequestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequestable.swift; sourceTree = "<group>"; };
+		538E6F1E2CB67C5100070B32 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		538E6F202CB67C9200070B32 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		538E6F222CB67CD600070B32 /* PocketmonRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketmonRequest.swift; sourceTree = "<group>"; };
+		538E6F242CB680B000070B32 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		538E6F252CB680EB00070B32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		538E6F272CB6813C00070B32 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		53B732012CB6C05B00D18FAB /* PocketmonResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketmonResponse.swift; sourceTree = "<group>"; };
+		53B732032CB6C07100D18FAB /* PocketmonInformationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketmonInformationResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +53,7 @@
 		530071462CB67743003C035D = {
 			isa = PBXGroup;
 			children = (
+				538E6F242CB680B000070B32 /* Secrets.xcconfig */,
 				538E6F162CB6780900070B32 /* .gitignore */,
 				530071512CB67743003C035D /* BerryQuest */,
 				530071502CB67743003C035D /* Products */,
@@ -54,6 +71,9 @@
 		530071512CB67743003C035D /* BerryQuest */ = {
 			isa = PBXGroup;
 			children = (
+				53B731FF2CB6C04600D18FAB /* DataModel */,
+				538E6F252CB680EB00070B32 /* Info.plist */,
+				538E6F182CB6787500070B32 /* Network */,
 				530071522CB67743003C035D /* BerryQuestApp.swift */,
 				530071542CB67743003C035D /* ContentView.swift */,
 				530071562CB67745003C035D /* Assets.xcassets */,
@@ -68,6 +88,59 @@
 				530071592CB67745003C035D /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		538E6F182CB6787500070B32 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				538E6F262CB6813400070B32 /* Implement */,
+				538E6F1D2CB67C4B00070B32 /* Enum */,
+				538E6F1A2CB67B4900070B32 /* HTTPRequestBuilder */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		538E6F1A2CB67B4900070B32 /* HTTPRequestBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				538E6F1B2CB67B5B00070B32 /* HTTPRequestable.swift */,
+				538E6F222CB67CD600070B32 /* PocketmonRequest.swift */,
+			);
+			path = HTTPRequestBuilder;
+			sourceTree = "<group>";
+		};
+		538E6F1D2CB67C4B00070B32 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				538E6F1E2CB67C5100070B32 /* NetworkError.swift */,
+				538E6F202CB67C9200070B32 /* HTTPMethod.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
+		538E6F262CB6813400070B32 /* Implement */ = {
+			isa = PBXGroup;
+			children = (
+				538E6F272CB6813C00070B32 /* NetworkManager.swift */,
+			);
+			path = Implement;
+			sourceTree = "<group>";
+		};
+		53B731FF2CB6C04600D18FAB /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				53B732002CB6C04B00D18FAB /* DTO */,
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
+		53B732002CB6C04B00D18FAB /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				53B732012CB6C05B00D18FAB /* PocketmonResponse.swift */,
+				53B732032CB6C07100D18FAB /* PocketmonInformationResponse.swift */,
+			);
+			path = DTO;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,7 +215,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				530071552CB67743003C035D /* ContentView.swift in Sources */,
+				53B732022CB6C05B00D18FAB /* PocketmonResponse.swift in Sources */,
+				538E6F1F2CB67C5100070B32 /* NetworkError.swift in Sources */,
+				538E6F232CB67CD600070B32 /* PocketmonRequest.swift in Sources */,
+				53B732042CB6C07100D18FAB /* PocketmonInformationResponse.swift in Sources */,
+				538E6F282CB6813C00070B32 /* NetworkManager.swift in Sources */,
 				530071532CB67743003C035D /* BerryQuestApp.swift in Sources */,
+				538E6F212CB67C9200070B32 /* HTTPMethod.swift in Sources */,
+				538E6F1C2CB67B5B00070B32 /* HTTPRequestable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +350,7 @@
 		};
 		5300715E2CB67745003C035D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 538E6F242CB680B000070B32 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -279,6 +360,7 @@
 				DEVELOPMENT_TEAM = CX8P4D8Z7M;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BerryQuest/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -308,6 +390,7 @@
 				DEVELOPMENT_TEAM = CX8P4D8Z7M;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BerryQuest/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

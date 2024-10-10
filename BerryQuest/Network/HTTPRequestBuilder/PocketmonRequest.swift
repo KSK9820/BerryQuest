@@ -23,7 +23,7 @@ extension PocketmonRequest: HTTPRequestable {
     
     var baseURLString: String {
         get throws {
-            guard let baseURL = Bundle.main.infoDictionary?["BASEURL"] as? String
+            guard let baseURL = Bundle.main.infoDictionary?["BaseURL"] as? String
             else {
                 throw NetworkError.notFoundBaseURL
             }

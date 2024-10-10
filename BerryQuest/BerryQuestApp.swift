@@ -6,12 +6,17 @@
 //
 
 import SwiftUI
+import KakaoMapsSDK
 
 @main
 struct BerryQuestApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MapView()
+                .onAppear(perform: {
+                    SDKInitializer.InitSDK(appKey: Bundle.main.infoDictionary?["KakaoAppKey"] as! String)
+                })
         }
     }
 }
+

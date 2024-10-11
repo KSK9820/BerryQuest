@@ -10,17 +10,17 @@ import CoreLocation
 
 struct MapView: View {
     
-    @StateObject private var locationManager = LocationManager()
-    @State private var draw = false
+    @StateObject private var viewModel = MapViewModel()
     
     var body: some View {
-        if let _ = locationManager.currentLocation {
-            KakaoMapView(currentLocation: $locationManager.currentLocation, draw: $draw)
+        if let _ = viewModel.currentLocation,
+           let _ = viewModel.pocketmon {
+            KakaoMapView(currentLocation: $viewModel.currentLocation, pocketmons: $viewModel.pocketmon, draw: $viewModel.draw)
                 .onAppear {
-                    self.draw = true
+                    viewModel.input.onAppear.send(())
                 }
                 .onDisappear {
-                    self.draw = false
+                    viewModel.input.onDisappear.send(())
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         } else {

@@ -15,7 +15,7 @@ struct MapView: View {
     var body: some View {
         if let _ = viewModel.currentLocation,
            let _ = viewModel.pocketmon {
-            KakaoMapView(currentLocation: $viewModel.currentLocation, pocketmons: $viewModel.pocketmon, draw: $viewModel.draw)
+            KakaoMapView(currentLocation: $viewModel.currentLocation, pocketmons: $viewModel.pocketmon, draw: $viewModel.draw, viewModel: viewModel)
                 .onAppear {
                     viewModel.input.onAppear.send(())
                 }

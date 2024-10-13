@@ -189,6 +189,7 @@
 		53B732092CB6F38A00D18FAB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				53DA69C62CBC37EF00A8F1EB /* BottomSheet */,
 				53B7320A2CB6F38D00D18FAB /* Map */,
 			);
 			path = View;
@@ -228,6 +229,21 @@
 				53D87BB02CB9131B00575F05 /* MapViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		53DA69C52CBC37EF00A8F1EB /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		53DA69C62CBC37EF00A8F1EB /* BottomSheet */ = {
+			isa = PBXGroup;
+			children = (
+				53DA69C52CBC37EF00A8F1EB /* ViewModel */,
+			);
+			path = BottomSheet;
 			sourceTree = "<group>";
 		};
 		53FC25372CB840D200FDA7A0 /* Utilis */ = {

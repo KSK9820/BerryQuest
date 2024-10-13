@@ -19,7 +19,7 @@ final class RouteSearchManager {
         self.coordinates = coordinates
     }
     
-    func getShortestPathWithTSP() -> [Coordinate] {
+    func getShortestPathWithTSP() -> [Int] {
         let n = coordinates.count
         let INF = Double(Int.max)
         let weight = getDistance()
@@ -73,7 +73,7 @@ final class RouteSearchManager {
         
         path.reverse()
         
-        return path.map { coordinates[$0] }
+        return path
     }
     
     private func getDistance() -> [[Double]] {

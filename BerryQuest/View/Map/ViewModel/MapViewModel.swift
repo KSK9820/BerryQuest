@@ -16,6 +16,7 @@ final class MapViewModel: ObservableObject {
     struct Input {
         let onAppear = PassthroughSubject<Void, Never>()
         let onDisappear = PassthroughSubject<Void, Never>()
+        let buttonTapped = PassthroughSubject<Void, Never>()
     }
     
     var input = Input()
@@ -23,7 +24,7 @@ final class MapViewModel: ObservableObject {
     @Published var currentLocation: CLLocationCoordinate2D?
     @Published var pocketmon: [PocketmonDomain]?
     @Published var draw: Bool = false
-    @Published var shortRoute: [Edge] = []
+    @Published var shortRoute: [Coordinate]?
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -66,7 +67,6 @@ final class MapViewModel: ObservableObject {
                     guard let self else { return }
                     
                     self.pocketmon = pocketmonDomains
-//                    self.getShortRoute(pocketmonDomains.map { $0.coordinate })
                 }
             )
             .store(in: &cancellables)
@@ -78,13 +78,34 @@ final class MapViewModel: ObservableObject {
                 self.draw = false
             }
             .store(in: &cancellables)
+        
+        input.buttonTapped
+            .sink { [weak self] _ in
+                guard let self else { return }
+                
+                if let pokemon = self.pocketmon {
+                    self.getShortRoute(pokemon.map { $0.coordinate })
+                }
+            }
+            .store(in: &cancellables)
     }
     
-//    private func getShortRoute(_ coordinate: [Coordinate]) {
-//        guard let currentLocation = locationManager.currentLocation else { return }
-//        
-//        let coord = [currentLocation.convertToCoordinate()] + coordinate
-//        let a = RouteSearchManager(coordinates: coord).getShortestPathWithTSP()
-//    }
+    private func getShortRoute(_ coordinate: [Coordinate]) {
+        guard let currentLocation,
+              let pocketmon else { return }
+        
+        let locations = [currentLocation.convertToCoordinate()] + pocketmon.map { $0.coordinate }
+        let sortedIndex = RouteSearchManager(coordinates: locations).getShortestPathWithTSP()
+        
+        let sortedCoords = sortedIndex.map { locations[$0] }
+        var sortedPokemon = [PocketmonDomain]()
+        
+        for i in 1..<sortedIndex.count {
+            sortedPokemon.append(pocketmon[sortedIndex[i]-1])
+        }
+        
+        self.shortRoute = sortedCoords
+        self.pocketmon = sortedPokemon
+    }
     
 }

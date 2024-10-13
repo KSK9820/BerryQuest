@@ -5,6 +5,7 @@
 //  Created by 김수경 on 10/10/24.
 //
 
+import UIKit
 import SwiftUI
 import CoreLocation
 import KakaoMapsSDK
@@ -19,9 +20,8 @@ struct KakaoMapView: UIViewRepresentable {
     /// 뷰 생성과 함께 KMControllerDelegate를 구현한 Coordinator를 생성하고, 엔진을 생성 및 초기화한다.
     func makeUIView(context: Self.Context) -> KMViewContainer {
         let view = KMViewContainer()
-        
         view.sizeToFit()
-        
+
         context.coordinator.createController(view)
         
         return view
@@ -61,7 +61,7 @@ struct KakaoMapView: UIViewRepresentable {
     
     
     /// Coordinator 구현. KMControllerDelegate를 adopt한다.
-    final class KakaoMapCoordinator: NSObject, MapControllerDelegate {
+    final class KakaoMapCoordinator: NSObject, MapControllerDelegate, GuiEventDelegate {
         
         var first: Bool
         var controller: KMController?
@@ -106,6 +106,7 @@ struct KakaoMapView: UIViewRepresentable {
             createPoiLayer()
             createPoiStyle()
             createPoi()
+            createSpriteGUI()
         }
         
         //addView 실패 이벤트 delegate. 실패에 대한 오류 처리를 진행한다.
@@ -143,6 +144,8 @@ struct KakaoMapView: UIViewRepresentable {
 //            }
 //        }
         
+        // MARK: - Poi
+
         private func createPoiLayer() {
             guard let controller else { return }
             guard let mapView = controller.getView("mapview") as? KakaoMap else { return }
@@ -215,6 +218,79 @@ struct KakaoMapView: UIViewRepresentable {
             
             mapView.moveCamera(CameraUpdate.make(target: myPoi, zoomLevel: 12, mapView: mapView))
         }
+     
+        // MARK: - SpriteGUI
+        
+        func createSpriteGUI() {
+            guard let controller else { return }
+            guard let mapView = controller.getView("mapview") as? KakaoMap else { return }
+            
+            let manager = mapView.getGuiManager()
+            let spriteLayer = manager.spriteGuiLayer
+            
+            let button = GuiButton("button")
+            button.image = UIImage(named: "route")
+
+            
+            let spriteGui = SpriteGui("buttonGui")
+            spriteGui.addChild(button)
+            spriteGui.origin = GuiAlignment(vAlign: .top, hAlign: .right)
+            spriteGui.delegate = self
+            
+            spriteLayer.addSpriteGui(spriteGui)
+            spriteGui.show()
+        }
+        
+        func guiDidTapped(_ gui: GuiBase, componentName: String) {
+            createPolylineStyleSet()
+            createPolylineShape()
+        }
+        
+        private func getShortestPath() -> [MapPoint] {
+            guard let currentLocation else { return [] }
+            guard let pocketmons else { return [] }
+            
+            let locations = [currentLocation.convertToCoordinate()] + pocketmons.map { $0.coordinate }
+            let paths = RouteSearchManager(coordinates: locations)
+                .getShortestPathWithTSP().map { $0.convertToMapPoint() }
+            
+            return paths
+        }
+        
+        // MARK: - polyline
+        
+        func createPolylineStyleSet() {
+            guard let controller else { return }
+            guard let mapView = controller.getView("mapview") as? KakaoMap else { return }
+            
+            let manager = mapView.getShapeManager()
+            let polylineStyle = PolylineStyle(styles: [
+                PerLevelPolylineStyle(bodyColor: UIColor.blue, bodyWidth: 10, strokeColor: UIColor.red, strokeWidth: 1, level: 0),
+            ])
+            
+            manager.addPolylineStyleSet(PolylineStyleSet(styleSetID: "polylineStyleSet", styles: [polylineStyle]))
+        }
+     
+        func createPolylineShape() {
+            guard let controller else { return }
+            guard let mapView = controller.getView("mapview") as? KakaoMap else { return }
+      
+            let manager = mapView.getShapeManager()
+            let layer = manager.addShapeLayer(layerID: "PolylineLayer", zOrder: 10001)
+         
+            let coords = getShortestPath()
+            let rect = AreaRect(points: getShortestPath())
+            let lines = [MapPolyline(line: coords, styleIndex: 0)]
+            
+            let options = MapPolylineShapeOptions(shapeID: "mapPolylines", styleID: "polylineStyleSet", zOrder: 1)
+            options.polylines = lines
+            
+            let polyline = layer?.addMapPolylineShape(options)
+            polyline?.show()
+
+            let cameraUpdate = CameraUpdate.make(area: rect)
+            mapView.moveCamera(cameraUpdate)
+         }
         
     }
     

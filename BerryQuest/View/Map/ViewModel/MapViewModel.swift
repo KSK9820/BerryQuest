@@ -66,7 +66,7 @@ final class MapViewModel: ObservableObject {
                     guard let self else { return }
                     
                     self.pocketmon = pocketmonDomains
-                    self.getShortRoute(pocketmonDomains.map { $0.coordinate })
+//                    self.getShortRoute(pocketmonDomains.map { $0.coordinate })
                 }
             )
             .store(in: &cancellables)
@@ -80,18 +80,11 @@ final class MapViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    private func getShortRoute(_ coordinate: [Coordinate]) {
-        guard let currentLocation = locationManager.currentLocation else { return }
-        
-        let coord = [currentLocation.convertToCoordinate()] + coordinate
-        let a = RouteSearchManager(coordinates: coord).getDijkstraPath()
-        print(a)
-    }
+//    private func getShortRoute(_ coordinate: [Coordinate]) {
+//        guard let currentLocation = locationManager.currentLocation else { return }
+//        
+//        let coord = [currentLocation.convertToCoordinate()] + coordinate
+//        let a = RouteSearchManager(coordinates: coord).getShortestPathWithTSP()
+//    }
     
-}
-
-extension CLLocationCoordinate2D {
-    func convertToCoordinate() -> Coordinate {
-        return Coordinate(latitude: self.latitude, longitude: self.longitude)
-    }
 }

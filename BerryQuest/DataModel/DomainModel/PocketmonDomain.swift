@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreLocation
+import KakaoMapsSDK
 
 struct PocketmonDomain: Decodable {
     let id: Int
@@ -22,4 +23,9 @@ struct Coordinate: Decodable {
     func convertToCoreLocation() -> CLLocationCoordinate2D {
         CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
     }
+    
+    func convertToMapPoint() -> MapPoint {
+        return MapPoint(longitude: self.longitude, latitude: self.latitude)
+    }
+    
 }

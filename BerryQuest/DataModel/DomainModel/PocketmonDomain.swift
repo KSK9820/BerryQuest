@@ -11,7 +11,7 @@ import CoreLocation
 struct PocketmonDomain: Decodable {
     let id: Int
     let name: String
-    let imageURL: String
+    let imageData: Data
     let coordinate: Coordinate
 }
 

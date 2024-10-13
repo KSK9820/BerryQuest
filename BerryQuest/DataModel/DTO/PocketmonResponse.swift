@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 struct PocketmonResponse: Decodable {
     let id: Int
@@ -13,10 +14,18 @@ struct PocketmonResponse: Decodable {
     let imageURL: String
     let coordinate: CoordinateResponse
     
-    func convertToDomain() -> PocketmonDomain {
-        PocketmonDomain(id: self.id, name: self.name, imageURL: self.imageURL, coordinate: self.coordinate.convertToDomain())
+    func convertToDomain() -> AnyPublisher<PocketmonDomain, Error> {
+        return NetworkManager.shared.getData(PocketmonRequest.pocketmonImage(id: "\(self.id)"))
+            .map { imageData in
+                PocketmonDomain(
+                    id: self.id,
+                    name: self.name,
+                    imageData: imageData,
+                    coordinate: self.coordinate.convertToDomain()
+                )
+            }
+            .eraseToAnyPublisher()
     }
-    
 }
 
 struct CoordinateResponse: Decodable {

@@ -10,6 +10,7 @@ import Foundation
 enum PocketmonRequest {
     case allPocketmons
     case pocketmon(id: String)
+    case pocketmonImage(id: String)
 }
 
 extension PocketmonRequest: HTTPRequestable {
@@ -20,20 +21,29 @@ extension PocketmonRequest: HTTPRequestable {
             return "https"
         }
     }
-    
+
     var baseURLString: String {
         get throws {
-            guard let baseURL = Bundle.main.infoDictionary?["BaseURL"] as? String
-            else {
-                throw NetworkError.notFoundBaseURL
+            switch self {
+            case .allPocketmons, .pocketmon:
+                guard let baseURL = Bundle.main.infoDictionary?["BaseURL"] as? String
+                else {
+                    throw NetworkError.notFoundBaseURL
+                }
+                return baseURL
+            case .pocketmonImage:
+                guard let baseURL = Bundle.main.infoDictionary?["ImageBaseURL"] as? String
+                else {
+                    throw NetworkError.notFoundBaseURL
+                }
+                return baseURL
             }
-            return baseURL
         }
     }
     
     var httpMethod: HTTPMethod {
         switch self {
-        case .allPocketmons, .pocketmon:
+        case .allPocketmons, .pocketmon, .pocketmonImage:
             return .get
         }
     }
@@ -44,6 +54,8 @@ extension PocketmonRequest: HTTPRequestable {
             return ["pokemons"]
         case .pocketmon(let id):
             return ["pokemons", id]
+        case .pocketmonImage(let id):
+            return ["PokeAPI", "sprites", "master", "sprites", "pokemon", "other", "official-artwork", "\(id).png"]
         }
     }
     

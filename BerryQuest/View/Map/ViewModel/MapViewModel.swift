@@ -7,10 +7,11 @@
 
 import Combine
 import CoreLocation
+import SwiftUI
 
 final class MapViewModel: ObservableObject {
     
-    @Published private var locationManager = LocationManager()
+    private var locationManager = LocationManager()
     
     struct Input {
         let onAppear = PassthroughSubject<Void, Never>()
@@ -22,6 +23,7 @@ final class MapViewModel: ObservableObject {
     @Published var currentLocation: CLLocationCoordinate2D?
     @Published var pocketmon: [PocketmonDomain]?
     @Published var draw: Bool = false
+    @Published var shortRoute: [Edge] = []
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -46,12 +48,29 @@ final class MapViewModel: ObservableObject {
                 print(error)
                 return Just([])
             }
-            .map { $0.map { $0.convertToDomain() } }
-            .sink { value in
-                self.pocketmon = value
+            .flatMap { pocketmonResponses -> AnyPublisher<[PocketmonDomain], Error> in
+                let publishers = pocketmonResponses.map { response in
+                    response.convertToDomain()
+                }
+                
+                return Publishers.MergeMany(publishers)
+                    .collect()
+                    .eraseToAnyPublisher()
             }
+            .sink(
+                receiveCompletion: { completion in
+                    if case .failure(let failure) = completion {
+                        print(failure)
+                    }
+                }, receiveValue: { [weak self] pocketmonDomains in
+                    guard let self else { return }
+                    
+                    self.pocketmon = pocketmonDomains
+                    self.getShortRoute(pocketmonDomains.map { $0.coordinate })
+                }
+            )
             .store(in: &cancellables)
-        
+
         input.onDisappear
             .sink { [weak self] _ in
                 guard let self else { return }
@@ -61,4 +80,18 @@ final class MapViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    private func getShortRoute(_ coordinate: [Coordinate]) {
+        guard let currentLocation = locationManager.currentLocation else { return }
+        
+        let coord = [currentLocation.convertToCoordinate()] + coordinate
+        let a = RouteSearchManager(coordinates: coord).getDijkstraPath()
+        print(a)
+    }
+    
+}
+
+extension CLLocationCoordinate2D {
+    func convertToCoordinate() -> Coordinate {
+        return Coordinate(latitude: self.latitude, longitude: self.longitude)
+    }
 }

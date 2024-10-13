@@ -157,16 +157,32 @@ struct KakaoMapView: UIViewRepresentable {
             guard let mapView = controller.getView("mapview") as? KakaoMap else { return }
             
             let manager = mapView.getLabelManager()
-            let myIconStyle = PoiIconStyle(symbol: UIImage(named: "pin_red.png"), anchorPoint: CGPoint(x: 0.0, y: 0.5))
-            let pocketmoniconStyle = PoiIconStyle(symbol: UIImage(named: "pin_green.png"), anchorPoint: CGPoint(x: 0.0, y: 0.5))
             
+            let myIconStyle = PoiIconStyle(symbol: UIImage(named: "pin_red.png"), anchorPoint: CGPoint(x: 0.0, y: 0.5))
             let myPerLevelStyle = PerLevelPoiStyle(iconStyle: myIconStyle, level: 0)
-            let pocketmonPerLevelStyle = PerLevelPoiStyle(iconStyle: pocketmoniconStyle, level: 0)
             let myPoiStyle = PoiStyle(styleID: "customStyle1", styles: [myPerLevelStyle])
-            let pocketmonPoiStyle = PoiStyle(styleID: "customStyle2", styles: [pocketmonPerLevelStyle])
+
+            if let pocketmons {
+                var poiStyles = [PoiStyle]()
+                
+                for pocketmon in pocketmons {
+                    let pocketmonBasicIconStyle = PoiIconStyle(symbol: UIImage(named: "pin_green.png"), anchorPoint: CGPoint(x: 0.0, y: 0.5))
+                    let pocketmonImageIconStyle = PoiIconStyle(symbol: UIImage(data: pocketmon.imageData)?.resize(to: CGSize(width: 30, height: 30)), anchorPoint: CGPoint(x: 0.0, y: 0.5))
+    
+                    let pocketmonBasicPerLevelStyle = PerLevelPoiStyle(iconStyle: pocketmonBasicIconStyle, level: 0)
+                    let pocketmonImagePerLevelStyle = PerLevelPoiStyle(iconStyle: pocketmonImageIconStyle, level: 12)
+    
+                    let pocketmonPoiStyle = PoiStyle(styleID: "pocketmon\(pocketmon.id)Style", styles: [pocketmonBasicPerLevelStyle, pocketmonImagePerLevelStyle])
+                    
+                    poiStyles.append(pocketmonPoiStyle)
+                }
+                
+                poiStyles.forEach {
+                    manager.addPoiStyle($0)
+                }
+            }
             
             manager.addPoiStyle(myPoiStyle)
-            manager.addPoiStyle(pocketmonPoiStyle)
         }
         
         private func createPoi() {
@@ -177,18 +193,18 @@ struct KakaoMapView: UIViewRepresentable {
             let manager = mapView.getLabelManager()
             let layer = manager.getLabelLayer(layerID: "PoiLayer")
             let myPoiOption = PoiOptions(styleID: "customStyle1")
-            let pocketmonPoiOption = PoiOptions(styleID: "customStyle2")
-            
-            myPoiOption.rank = 0
-            pocketmonPoiOption.rank = 0
-            
             var pois = [Poi?]()
             
+            myPoiOption.rank = 0
+            
             let myPoi = MapPoint(longitude: currentLocation.longitude, latitude: currentLocation.latitude)
+            
             pois.append(layer?.addPoi(option: myPoiOption, at: myPoi))
             
             if let pocketmons {
                 for pocketmon in pocketmons {
+                    let pocketmonPoiOption = PoiOptions(styleID: "pocketmon\(pocketmon.id)Style")
+                    pocketmonPoiOption.rank = 0
                     pois.append(layer?.addPoi(option: pocketmonPoiOption, at: MapPoint(longitude: pocketmon.coordinate.longitude, latitude: pocketmon.coordinate.latitude)))
                 }
             }
@@ -197,11 +213,9 @@ struct KakaoMapView: UIViewRepresentable {
                 poi?.show()
             }
             
-            mapView.moveCamera(CameraUpdate.make(target: myPoi, zoomLevel: 10, mapView: mapView))
+            mapView.moveCamera(CameraUpdate.make(target: myPoi, zoomLevel: 12, mapView: mapView))
         }
         
     }
     
 }
-
-

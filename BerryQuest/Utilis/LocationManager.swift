@@ -17,6 +17,7 @@ final class LocationManager: NSObject, ObservableObject {
         super.init()
         
         configureLocationManager()
+        requestAuthorization()
     }
     
     private func configureLocationManager() {
@@ -32,14 +33,6 @@ final class LocationManager: NSObject, ObservableObject {
         manager.requestLocation()
     }
     
-    private func updateLocation() {
-        manager.startUpdatingLocation()
-    }
-    
-    private func stopUpdatingLocation() {
-        manager.stopUpdatingLocation()
-    }
-    
 }
 
 extension LocationManager: CLLocationManagerDelegate {
@@ -47,7 +40,7 @@ extension LocationManager: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
         case .authorizedWhenInUse, .authorizedAlways:
-            updateLocation()
+            requestLocation()
         case .notDetermined:
             requestAuthorization()
         case .restricted, .denied:
@@ -62,7 +55,6 @@ extension LocationManager: CLLocationManagerDelegate {
         
         DispatchQueue.main.async { 
             self.currentLocation = location.coordinate
-            self.stopUpdatingLocation()
         }
         
     }

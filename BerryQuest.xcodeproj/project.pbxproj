@@ -13,6 +13,8 @@
 		535925C12CB93613002BE05F /* PocketmonDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535925C02CB93613002BE05F /* PocketmonDomain.swift */; };
 		537D93F22CBBB0810072B0A7 /* route.png in Resources */ = {isa = PBXBuildFile; fileRef = 537D93F12CBBB0810072B0A7 /* route.png */; };
 		537D93F52CBBB3160072B0A7 /* CLLocationCoordinate2D+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537D93F42CBBB3160072B0A7 /* CLLocationCoordinate2D+Extension.swift */; };
+		537D93FA2CBBEE5C0072B0A7 /* PokemonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537D93F92CBBEE5C0072B0A7 /* PokemonListView.swift */; };
+		537D93FC2CBBEFCF0072B0A7 /* PokemonListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537D93FB2CBBEFCF0072B0A7 /* PokemonListContentView.swift */; };
 		538E6F172CB6780900070B32 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 538E6F162CB6780900070B32 /* .gitignore */; };
 		538E6F1C2CB67B5B00070B32 /* HTTPRequestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538E6F1B2CB67B5B00070B32 /* HTTPRequestable.swift */; };
 		538E6F1F2CB67C5100070B32 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538E6F1E2CB67C5100070B32 /* NetworkError.swift */; };
@@ -40,6 +42,8 @@
 		535925C02CB93613002BE05F /* PocketmonDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketmonDomain.swift; sourceTree = "<group>"; };
 		537D93F12CBBB0810072B0A7 /* route.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = route.png; sourceTree = "<group>"; };
 		537D93F42CBBB3160072B0A7 /* CLLocationCoordinate2D+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Extension.swift"; sourceTree = "<group>"; };
+		537D93F92CBBEE5C0072B0A7 /* PokemonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListView.swift; sourceTree = "<group>"; };
+		537D93FB2CBBEFCF0072B0A7 /* PokemonListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListContentView.swift; sourceTree = "<group>"; };
 		538E6F162CB6780900070B32 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		538E6F1B2CB67B5B00070B32 /* HTTPRequestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequestable.swift; sourceTree = "<group>"; };
 		538E6F1E2CB67C5100070B32 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
@@ -123,6 +127,31 @@
 			path = DomainModel;
 			sourceTree = "<group>";
 		};
+		537D93F62CBBEE010072B0A7 /* BottomSheet */ = {
+			isa = PBXGroup;
+			children = (
+				537D93F82CBBEE4B0072B0A7 /* ViewModel */,
+				537D93F72CBBEE480072B0A7 /* View */,
+			);
+			path = BottomSheet;
+			sourceTree = "<group>";
+		};
+		537D93F72CBBEE480072B0A7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				537D93F92CBBEE5C0072B0A7 /* PokemonListView.swift */,
+				537D93FB2CBBEFCF0072B0A7 /* PokemonListContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		537D93F82CBBEE4B0072B0A7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		538E6F182CB6787500070B32 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,6 +218,7 @@
 		53B732092CB6F38A00D18FAB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				537D93F62CBBEE010072B0A7 /* BottomSheet */,
 				53B7320A2CB6F38D00D18FAB /* Map */,
 			);
 			path = View;
@@ -323,6 +353,7 @@
 				53B7320E2CB6F3E300D18FAB /* KakaoMapView.swift in Sources */,
 				53B584132CB9ACB000A1D691 /* UIImage+Extension.swift in Sources */,
 				53B732022CB6C05B00D18FAB /* PocketmonResponse.swift in Sources */,
+				537D93FC2CBBEFCF0072B0A7 /* PokemonListContentView.swift in Sources */,
 				53D0ADDB2CBA5FFC006C8D27 /* RouteSearchManager.swift in Sources */,
 				538E6F1F2CB67C5100070B32 /* NetworkError.swift in Sources */,
 				53FC25392CB840E100FDA7A0 /* LocationManager.swift in Sources */,
@@ -330,6 +361,7 @@
 				538E6F232CB67CD600070B32 /* PocketmonRequest.swift in Sources */,
 				53B732042CB6C07100D18FAB /* PocketmonInformationResponse.swift in Sources */,
 				538E6F282CB6813C00070B32 /* NetworkManager.swift in Sources */,
+				537D93FA2CBBEE5C0072B0A7 /* PokemonListView.swift in Sources */,
 				530071532CB67743003C035D /* BerryQuestApp.swift in Sources */,
 				53B7320C2CB6F39700D18FAB /* MapView.swift in Sources */,
 				538E6F212CB67C9200070B32 /* HTTPMethod.swift in Sources */,

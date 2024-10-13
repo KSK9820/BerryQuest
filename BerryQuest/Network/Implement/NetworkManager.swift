@@ -39,4 +39,17 @@ extension NetworkManager {
             .eraseToAnyPublisher()
     }
     
+    func getData(_ request: HTTPRequestable) -> AnyPublisher<Data, Error> {
+        guard let url = request.asURL() else {
+            return Fail(error: NetworkError.invalidURL)
+                .eraseToAnyPublisher()
+        }
+        
+        return session.dataTaskPublisher(for: url)
+            .mapError {
+                NetworkError.unknownError(description: $0.localizedDescription)
+            }
+            .map(\.data)
+            .eraseToAnyPublisher()
+    }
 }

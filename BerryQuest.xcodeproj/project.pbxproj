@@ -8,25 +8,38 @@
 
 /* Begin PBXBuildFile section */
 		530071532CB67743003C035D /* BerryQuestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530071522CB67743003C035D /* BerryQuestApp.swift */; };
-		530071552CB67743003C035D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530071542CB67743003C035D /* ContentView.swift */; };
 		530071572CB67745003C035D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 530071562CB67745003C035D /* Assets.xcassets */; };
 		5300715A2CB67745003C035D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 530071592CB67745003C035D /* Preview Assets.xcassets */; };
+		535925C12CB93613002BE05F /* PocketmonDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535925C02CB93613002BE05F /* PocketmonDomain.swift */; };
+		537D93F22CBBB0810072B0A7 /* route.png in Resources */ = {isa = PBXBuildFile; fileRef = 537D93F12CBBB0810072B0A7 /* route.png */; };
+		537D93F52CBBB3160072B0A7 /* CLLocationCoordinate2D+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537D93F42CBBB3160072B0A7 /* CLLocationCoordinate2D+Extension.swift */; };
 		538E6F172CB6780900070B32 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 538E6F162CB6780900070B32 /* .gitignore */; };
 		538E6F1C2CB67B5B00070B32 /* HTTPRequestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538E6F1B2CB67B5B00070B32 /* HTTPRequestable.swift */; };
 		538E6F1F2CB67C5100070B32 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538E6F1E2CB67C5100070B32 /* NetworkError.swift */; };
 		538E6F212CB67C9200070B32 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538E6F202CB67C9200070B32 /* HTTPMethod.swift */; };
 		538E6F232CB67CD600070B32 /* PocketmonRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538E6F222CB67CD600070B32 /* PocketmonRequest.swift */; };
 		538E6F282CB6813C00070B32 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538E6F272CB6813C00070B32 /* NetworkManager.swift */; };
+		53B5840C2CB98B3700A1D691 /* pin_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 53B5840B2CB98B3700A1D691 /* pin_red.png */; };
+		53B5840E2CB98B4500A1D691 /* pin_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 53B5840D2CB98B4500A1D691 /* pin_green.png */; };
+		53B584132CB9ACB000A1D691 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B584122CB9ACB000A1D691 /* UIImage+Extension.swift */; };
 		53B732022CB6C05B00D18FAB /* PocketmonResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B732012CB6C05B00D18FAB /* PocketmonResponse.swift */; };
 		53B732042CB6C07100D18FAB /* PocketmonInformationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B732032CB6C07100D18FAB /* PocketmonInformationResponse.swift */; };
+		53B7320C2CB6F39700D18FAB /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B7320B2CB6F39700D18FAB /* MapView.swift */; };
+		53B7320E2CB6F3E300D18FAB /* KakaoMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B7320D2CB6F3E300D18FAB /* KakaoMapView.swift */; };
+		53D0ADDB2CBA5FFC006C8D27 /* RouteSearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D0ADDA2CBA5FFC006C8D27 /* RouteSearchManager.swift */; };
+		53D87BB12CB9131B00575F05 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D87BB02CB9131B00575F05 /* MapViewModel.swift */; };
+		53FAB47F2CB6FD25005C4D34 /* KakaoMapsSDK-SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 53FAB47E2CB6FD25005C4D34 /* KakaoMapsSDK-SPM */; };
+		53FC25392CB840E100FDA7A0 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FC25382CB840E100FDA7A0 /* LocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5300714F2CB67743003C035D /* BerryQuest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BerryQuest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		530071522CB67743003C035D /* BerryQuestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BerryQuestApp.swift; sourceTree = "<group>"; };
-		530071542CB67743003C035D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		530071562CB67745003C035D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		530071592CB67745003C035D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		535925C02CB93613002BE05F /* PocketmonDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketmonDomain.swift; sourceTree = "<group>"; };
+		537D93F12CBBB0810072B0A7 /* route.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = route.png; sourceTree = "<group>"; };
+		537D93F42CBBB3160072B0A7 /* CLLocationCoordinate2D+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Extension.swift"; sourceTree = "<group>"; };
 		538E6F162CB6780900070B32 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		538E6F1B2CB67B5B00070B32 /* HTTPRequestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequestable.swift; sourceTree = "<group>"; };
 		538E6F1E2CB67C5100070B32 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
@@ -35,8 +48,16 @@
 		538E6F242CB680B000070B32 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		538E6F252CB680EB00070B32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		538E6F272CB6813C00070B32 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		53B5840B2CB98B3700A1D691 /* pin_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin_red.png; sourceTree = "<group>"; };
+		53B5840D2CB98B4500A1D691 /* pin_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin_green.png; sourceTree = "<group>"; };
+		53B584122CB9ACB000A1D691 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		53B732012CB6C05B00D18FAB /* PocketmonResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketmonResponse.swift; sourceTree = "<group>"; };
 		53B732032CB6C07100D18FAB /* PocketmonInformationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketmonInformationResponse.swift; sourceTree = "<group>"; };
+		53B7320B2CB6F39700D18FAB /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		53B7320D2CB6F3E300D18FAB /* KakaoMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMapView.swift; sourceTree = "<group>"; };
+		53D0ADDA2CBA5FFC006C8D27 /* RouteSearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteSearchManager.swift; sourceTree = "<group>"; };
+		53D87BB02CB9131B00575F05 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		53FC25382CB840E100FDA7A0 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53FAB47F2CB6FD25005C4D34 /* KakaoMapsSDK-SPM in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,11 +93,14 @@
 		530071512CB67743003C035D /* BerryQuest */ = {
 			isa = PBXGroup;
 			children = (
+				53B584112CB9ACA500A1D691 /* Extension */,
+				53BEE3F92CB930FE00CB302A /* Resources */,
+				53FC25372CB840D200FDA7A0 /* Utilis */,
+				53B732092CB6F38A00D18FAB /* View */,
 				53B731FF2CB6C04600D18FAB /* DataModel */,
 				538E6F252CB680EB00070B32 /* Info.plist */,
 				538E6F182CB6787500070B32 /* Network */,
 				530071522CB67743003C035D /* BerryQuestApp.swift */,
-				530071542CB67743003C035D /* ContentView.swift */,
 				530071562CB67745003C035D /* Assets.xcassets */,
 				530071582CB67745003C035D /* Preview Content */,
 			);
@@ -88,6 +113,14 @@
 				530071592CB67745003C035D /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		535925BF2CB93605002BE05F /* DomainModel */ = {
+			isa = PBXGroup;
+			children = (
+				535925C02CB93613002BE05F /* PocketmonDomain.swift */,
+			);
+			path = DomainModel;
 			sourceTree = "<group>";
 		};
 		538E6F182CB6787500070B32 /* Network */ = {
@@ -126,9 +159,19 @@
 			path = Implement;
 			sourceTree = "<group>";
 		};
+		53B584112CB9ACA500A1D691 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				53B584122CB9ACB000A1D691 /* UIImage+Extension.swift */,
+				537D93F42CBBB3160072B0A7 /* CLLocationCoordinate2D+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		53B731FF2CB6C04600D18FAB /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
+				535925BF2CB93605002BE05F /* DomainModel */,
 				53B732002CB6C04B00D18FAB /* DTO */,
 			);
 			path = DataModel;
@@ -141,6 +184,59 @@
 				53B732032CB6C07100D18FAB /* PocketmonInformationResponse.swift */,
 			);
 			path = DTO;
+			sourceTree = "<group>";
+		};
+		53B732092CB6F38A00D18FAB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				53B7320A2CB6F38D00D18FAB /* Map */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		53B7320A2CB6F38D00D18FAB /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				53D87BAF2CB9130D00575F05 /* ViewModel */,
+				53D87BAE2CB9130700575F05 /* View */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		53BEE3F92CB930FE00CB302A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				537D93F12CBBB0810072B0A7 /* route.png */,
+				53B5840B2CB98B3700A1D691 /* pin_red.png */,
+				53B5840D2CB98B4500A1D691 /* pin_green.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		53D87BAE2CB9130700575F05 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				53B7320B2CB6F39700D18FAB /* MapView.swift */,
+				53B7320D2CB6F3E300D18FAB /* KakaoMapView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		53D87BAF2CB9130D00575F05 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				53D87BB02CB9131B00575F05 /* MapViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		53FC25372CB840D200FDA7A0 /* Utilis */ = {
+			isa = PBXGroup;
+			children = (
+				53FC25382CB840E100FDA7A0 /* LocationManager.swift */,
+				53D0ADDA2CBA5FFC006C8D27 /* RouteSearchManager.swift */,
+			);
+			path = Utilis;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -159,6 +255,9 @@
 			dependencies = (
 			);
 			name = BerryQuest;
+			packageProductDependencies = (
+				53FAB47E2CB6FD25005C4D34 /* KakaoMapsSDK-SPM */,
+			);
 			productName = BerryQuest;
 			productReference = 5300714F2CB67743003C035D /* BerryQuest.app */;
 			productType = "com.apple.product-type.application";
@@ -187,6 +286,9 @@
 				Base,
 			);
 			mainGroup = 530071462CB67743003C035D;
+			packageReferences = (
+				53FAB47D2CB6FD25005C4D34 /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */,
+			);
 			productRefGroup = 530071502CB67743003C035D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -203,6 +305,9 @@
 			files = (
 				5300715A2CB67745003C035D /* Preview Assets.xcassets in Resources */,
 				538E6F172CB6780900070B32 /* .gitignore in Resources */,
+				53B5840E2CB98B4500A1D691 /* pin_green.png in Resources */,
+				537D93F22CBBB0810072B0A7 /* route.png in Resources */,
+				53B5840C2CB98B3700A1D691 /* pin_red.png in Resources */,
 				530071572CB67745003C035D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -214,15 +319,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				530071552CB67743003C035D /* ContentView.swift in Sources */,
+				537D93F52CBBB3160072B0A7 /* CLLocationCoordinate2D+Extension.swift in Sources */,
+				53B7320E2CB6F3E300D18FAB /* KakaoMapView.swift in Sources */,
+				53B584132CB9ACB000A1D691 /* UIImage+Extension.swift in Sources */,
 				53B732022CB6C05B00D18FAB /* PocketmonResponse.swift in Sources */,
+				53D0ADDB2CBA5FFC006C8D27 /* RouteSearchManager.swift in Sources */,
 				538E6F1F2CB67C5100070B32 /* NetworkError.swift in Sources */,
+				53FC25392CB840E100FDA7A0 /* LocationManager.swift in Sources */,
+				535925C12CB93613002BE05F /* PocketmonDomain.swift in Sources */,
 				538E6F232CB67CD600070B32 /* PocketmonRequest.swift in Sources */,
 				53B732042CB6C07100D18FAB /* PocketmonInformationResponse.swift in Sources */,
 				538E6F282CB6813C00070B32 /* NetworkManager.swift in Sources */,
 				530071532CB67743003C035D /* BerryQuestApp.swift in Sources */,
+				53B7320C2CB6F39700D18FAB /* MapView.swift in Sources */,
 				538E6F212CB67C9200070B32 /* HTTPMethod.swift in Sources */,
 				538E6F1C2CB67B5B00070B32 /* HTTPRequestable.swift in Sources */,
+				53D87BB12CB9131B00575F05 /* MapViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,7 +393,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -338,7 +450,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -361,6 +473,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BerryQuest/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치를 기반으로 정보를 제공하기 위해 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -391,6 +504,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BerryQuest/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치를 기반으로 정보를 제공하기 위해 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -431,6 +545,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		53FAB47D2CB6FD25005C4D34 /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao-mapsSDK/KakaoMapsSDK-SPM.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.12.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		53FAB47E2CB6FD25005C4D34 /* KakaoMapsSDK-SPM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 53FAB47D2CB6FD25005C4D34 /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */;
+			productName = "KakaoMapsSDK-SPM";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 530071472CB67743003C035D /* Project object */;
 }

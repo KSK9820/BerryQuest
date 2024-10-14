@@ -36,6 +36,7 @@
 		53B732042CB6C07100D18FAB /* PocketmonInformationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B732032CB6C07100D18FAB /* PocketmonInformationResponse.swift */; };
 		53B7320C2CB6F39700D18FAB /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B7320B2CB6F39700D18FAB /* MapView.swift */; };
 		53B7320E2CB6F3E300D18FAB /* KakaoMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B7320D2CB6F3E300D18FAB /* KakaoMapView.swift */; };
+		53C71AD02CBD543700B7A598 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 53C71ACF2CBD543700B7A598 /* README.md */; };
 		53D0ADDB2CBA5FFC006C8D27 /* RouteSearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D0ADDA2CBA5FFC006C8D27 /* RouteSearchManager.swift */; };
 		53D87BB12CB9131B00575F05 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D87BB02CB9131B00575F05 /* MapViewModel.swift */; };
 		53FAB47F2CB6FD25005C4D34 /* KakaoMapsSDK-SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 53FAB47E2CB6FD25005C4D34 /* KakaoMapsSDK-SPM */; };
@@ -75,6 +76,7 @@
 		53B732032CB6C07100D18FAB /* PocketmonInformationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketmonInformationResponse.swift; sourceTree = "<group>"; };
 		53B7320B2CB6F39700D18FAB /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		53B7320D2CB6F3E300D18FAB /* KakaoMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMapView.swift; sourceTree = "<group>"; };
+		53C71ACF2CBD543700B7A598 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../Downloads/README.md; sourceTree = "<group>"; };
 		53D0ADDA2CBA5FFC006C8D27 /* RouteSearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteSearchManager.swift; sourceTree = "<group>"; };
 		53D87BB02CB9131B00575F05 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		53FC25382CB840E100FDA7A0 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 		530071462CB67743003C035D = {
 			isa = PBXGroup;
 			children = (
+				53C71ACF2CBD543700B7A598 /* README.md */,
 				538E6F242CB680B000070B32 /* Secrets.xcconfig */,
 				538E6F162CB6780900070B32 /* .gitignore */,
 				530071512CB67743003C035D /* BerryQuest */,
@@ -376,6 +379,7 @@
 				5300715A2CB67745003C035D /* Preview Assets.xcassets in Resources */,
 				538E6F172CB6780900070B32 /* .gitignore in Resources */,
 				53B5840E2CB98B4500A1D691 /* pin_green.png in Resources */,
+				53C71AD02CBD543700B7A598 /* README.md in Resources */,
 				537D93F22CBBB0810072B0A7 /* route.png in Resources */,
 				53B5840C2CB98B3700A1D691 /* pin_red.png in Resources */,
 				530071572CB67745003C035D /* Assets.xcassets in Resources */,

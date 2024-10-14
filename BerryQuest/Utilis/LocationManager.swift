@@ -23,6 +23,7 @@ final class LocationManager: NSObject, ObservableObject {
     private func configureLocationManager() {
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
+        manager.distanceFilter = 100
     }
     
     private func requestAuthorization() {

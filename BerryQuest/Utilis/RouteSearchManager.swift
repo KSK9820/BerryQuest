@@ -9,16 +9,16 @@ import Foundation
 import Combine
 import SwiftUI
 
-typealias Edge = (d: Int, w: Double)
-
+// 최단 경로
 final class RouteSearchManager {
     
-    var coordinates: [Coordinate]
+    private var coordinates: [Coordinate]
     
     init(coordinates: [Coordinate]) {
         self.coordinates = coordinates
     }
     
+    // 외판원 순회(TSP) 알고리즘 
     func getShortestPathWithTSP() -> [Int] {
         let n = coordinates.count
         let INF = Double(Int.max)

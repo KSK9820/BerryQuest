@@ -16,6 +16,7 @@ enum NetworkError: Error, CustomStringConvertible {
 }
 
 extension NetworkError {
+    
     var description: String {
         switch self {
         case .notFoundBaseURL:
@@ -30,4 +31,5 @@ extension NetworkError {
             return "서버에 해당 데이터가 존재하지 않아 데이터를 불러오지 못했습니다."
         }
     }
+    
 }

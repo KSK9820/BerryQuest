@@ -52,4 +52,5 @@ extension NetworkManager {
             .map(\.data)
             .eraseToAnyPublisher()
     }
+    
 }

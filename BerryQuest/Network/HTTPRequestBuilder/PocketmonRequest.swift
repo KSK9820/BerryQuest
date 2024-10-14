@@ -1,5 +1,5 @@
 //
-//  PocketmonRequest.swift
+//  PokemonRequest.swift
 //  BerryQuest
 //
 //  Created by 김수경 on 10/9/24.
@@ -7,13 +7,13 @@
 
 import Foundation
 
-enum PocketmonRequest {
-    case allPocketmons
-    case pocketmon(id: String)
-    case pocketmonImage(id: String)
+enum PokemonRequest {
+    case allPokemons
+    case pokemon(id: String)
+    case pokemonImage(id: String)
 }
 
-extension PocketmonRequest: HTTPRequestable {
+extension PokemonRequest: HTTPRequestable {
     
     var scheme: String {
         switch self {
@@ -25,13 +25,13 @@ extension PocketmonRequest: HTTPRequestable {
     var baseURLString: String {
         get throws {
             switch self {
-            case .allPocketmons, .pocketmon:
+            case .allPokemons, .pokemon:
                 guard let baseURL = Bundle.main.infoDictionary?["BaseURL"] as? String
                 else {
                     throw NetworkError.notFoundBaseURL
                 }
                 return baseURL
-            case .pocketmonImage:
+            case .pokemonImage:
                 guard let baseURL = Bundle.main.infoDictionary?["ImageBaseURL"] as? String
                 else {
                     throw NetworkError.notFoundBaseURL
@@ -43,18 +43,18 @@ extension PocketmonRequest: HTTPRequestable {
     
     var httpMethod: HTTPMethod {
         switch self {
-        case .allPocketmons, .pocketmon, .pocketmonImage:
+        case .allPokemons, .pokemon, .pokemonImage:
             return .get
         }
     }
     
     var path: [String] {
         switch self {
-        case .allPocketmons:
+        case .allPokemons:
             return ["pokemons"]
-        case .pocketmon(let id):
+        case .pokemon(let id):
             return ["pokemons", id]
-        case .pocketmonImage(let id):
+        case .pokemonImage(let id):
             return ["PokeAPI", "sprites", "master", "sprites", "pokemon", "other", "official-artwork", "\(id).png"]
         }
     }

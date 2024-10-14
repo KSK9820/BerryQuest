@@ -29,8 +29,9 @@ final class LocationManager: NSObject, ObservableObject {
         manager.requestWhenInUseAuthorization()
     }
     
-    private func requestLocation() {
-        manager.requestLocation()
+    // 현재 위치를 실시간으로 업데이트
+    private func updateLocation() {
+        manager.startUpdatingLocation()
     }
     
 }
@@ -38,25 +39,26 @@ final class LocationManager: NSObject, ObservableObject {
 extension LocationManager: CLLocationManagerDelegate {
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        switch manager.authorizationStatus {
-        case .authorizedWhenInUse, .authorizedAlways:
-            requestLocation()
-        case .notDetermined:
-            requestAuthorization()
-        case .restricted, .denied:
-            break
-        default:
-            break
+        DispatchQueue.global().async {
+            if CLLocationManager.locationServicesEnabled() {
+                switch manager.authorizationStatus {
+                case .authorizedWhenInUse, .authorizedAlways:
+                    self.updateLocation()
+                case .notDetermined:
+                    self.requestAuthorization()
+                case .restricted, .denied:
+                    break
+                default:
+                    break
+                }
+            }
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         
-        DispatchQueue.main.async { 
-            self.currentLocation = location.coordinate
-        }
-        
+        self.currentLocation = location.coordinate
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

@@ -9,7 +9,7 @@ import SwiftUI
 import CoreLocation
 import KakaoMapsSDK
 
-class MapPolylineManager {
+final class MapPolylineManager {
     
     private var controller: KMController?
     private var container: KMViewContainer?
@@ -25,6 +25,14 @@ class MapPolylineManager {
         
         createPolylineStyleSet()
         createPolylineShape(currentLocation: currentLocation, coords: coords)
+    }
+    
+    func removePolyline() {
+        guard let controller else { return }
+        guard let mapView = controller.getView("mapview") as? KakaoMap else { return }
+    
+        let manager = mapView.getShapeManager()
+        manager.removeShapeLayer(layerID: "PolylineLayer")
     }
     
     private func createPolylineStyleSet() {
@@ -43,13 +51,11 @@ class MapPolylineManager {
         guard let controller else { return }
         guard let mapView = controller.getView("mapview") as? KakaoMap else { return }
         guard let coords else { return }
-        
+    
         let manager = mapView.getShapeManager()
+        manager.removeShapeLayer(layerID: "PolylineLayer")
+        
         let layer = manager.addShapeLayer(layerID: "PolylineLayer", zOrder: 10001)
-     
-//        let locations = [currentLocation.convertToCoordinate()] + pocketmons.map { $0.coordinate }
-//        let coords = RouteSearchManager(coordinates: locations)
-//            .getShortestPathWithTSP().map { $0.convertToMapPoint() }
         
         let rect = AreaRect(points: coords)
         let lines = [MapPolyline(line: coords, styleIndex: 0)]
@@ -59,7 +65,7 @@ class MapPolylineManager {
         
         let polyline = layer?.addMapPolylineShape(options)
         polyline?.show()
-
+        
         let cameraUpdate = CameraUpdate.make(area: rect)
         mapView.moveCamera(cameraUpdate)
     }

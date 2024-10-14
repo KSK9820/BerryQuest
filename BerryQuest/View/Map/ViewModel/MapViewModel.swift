@@ -21,10 +21,10 @@ final class MapViewModel: ObservableObject {
     
     var input = Input()
     
-    @Published var currentLocation: CLLocationCoordinate2D?
-    @Published var pocketmon: [PocketmonDomain]?
-    @Published var draw: Bool = false
-    @Published var shortRoute: [Coordinate]?
+    @Published private (set) var currentLocation: CLLocationCoordinate2D?
+    @Published var pokemon: [PokemonDomain]?
+    @Published private (set) var draw: Bool = false
+    @Published private (set) var shortRoute: [Coordinate]?
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -43,14 +43,13 @@ final class MapViewModel: ObservableObject {
             .store(in: &cancellables)
         
         NetworkManager.shared
-            .getData(PocketmonRequest.allPocketmons, response: [PocketmonResponse].self)
-            .receive(on: DispatchQueue.main)
-            .catch { error -> Just<[PocketmonResponse]> in
+            .getData(PokemonRequest.allPokemons, response: [PokemonResponse].self)
+            .catch { error -> Just<[PokemonResponse]> in
                 print(error)
                 return Just([])
             }
-            .flatMap { pocketmonResponses -> AnyPublisher<[PocketmonDomain], Error> in
-                let publishers = pocketmonResponses.map { response in
+            .flatMap { pokemonResponses -> AnyPublisher<[PokemonDomain], Error> in
+                let publishers = pokemonResponses.map { response in
                     response.convertToDomain()
                 }
                 
@@ -58,19 +57,20 @@ final class MapViewModel: ObservableObject {
                     .collect()
                     .eraseToAnyPublisher()
             }
+            .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { completion in
                     if case .failure(let failure) = completion {
                         print(failure)
                     }
-                }, receiveValue: { [weak self] pocketmonDomains in
+                }, receiveValue: { [weak self] pokemonDomains in
                     guard let self else { return }
                     
-                    self.pocketmon = pocketmonDomains
+                    self.pokemon = pokemonDomains
                 }
             )
             .store(in: &cancellables)
-
+        
         input.onDisappear
             .sink { [weak self] _ in
                 guard let self else { return }
@@ -83,7 +83,7 @@ final class MapViewModel: ObservableObject {
             .sink { [weak self] _ in
                 guard let self else { return }
                 
-                if let pokemon = self.pocketmon {
+                if let pokemon = self.pokemon {
                     self.getShortRoute(pokemon.map { $0.coordinate })
                 }
             }
@@ -92,20 +92,20 @@ final class MapViewModel: ObservableObject {
     
     private func getShortRoute(_ coordinate: [Coordinate]) {
         guard let currentLocation,
-              let pocketmon else { return }
+              let pokemon else { return }
         
-        let locations = [currentLocation.convertToCoordinate()] + pocketmon.map { $0.coordinate }
+        let locations = [currentLocation.convertToCoordinate()] + pokemon.map { $0.coordinate }
         let sortedIndex = RouteSearchManager(coordinates: locations).getShortestPathWithTSP()
         
         let sortedCoords = sortedIndex.map { locations[$0] }
-        var sortedPokemon = [PocketmonDomain]()
+        var sortedPokemon = [PokemonDomain]()
         
         for i in 1..<sortedIndex.count {
-            sortedPokemon.append(pocketmon[sortedIndex[i]-1])
+            sortedPokemon.append(pokemon[sortedIndex[i]-1])
         }
         
         self.shortRoute = sortedCoords
-        self.pocketmon = sortedPokemon
+        self.pokemon = sortedPokemon
     }
     
 }

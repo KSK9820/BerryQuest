@@ -5,16 +5,13 @@
 //  Created by 김수경 on 10/10/24.
 //
 
-import UIKit
 import SwiftUI
+import Combine
 import CoreLocation
 import KakaoMapsSDK
 
 struct KakaoMapView: UIViewRepresentable {
     
-    @Binding var currentLocation: CLLocationCoordinate2D?
-    @Binding var pocketmons: [PocketmonDomain]?
-    @Binding var draw: Bool
     @ObservedObject var viewModel: MapViewModel
     
     func makeUIView(context: Self.Context) -> KMViewContainer {
@@ -27,7 +24,7 @@ struct KakaoMapView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: KMViewContainer, context: Self.Context) {
-        if draw {
+        if viewModel.draw {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 if context.coordinator.controller?.isEnginePrepared == false {
                     context.coordinator.controller?.prepareEngine()
@@ -44,7 +41,7 @@ struct KakaoMapView: UIViewRepresentable {
     }
     
     func makeCoordinator() -> KakaoMapCoordinator {
-        return KakaoMapCoordinator(currentLocation: currentLocation, viewModel: viewModel)
+        return KakaoMapCoordinator(viewModel: viewModel)
     }
     
     static func dismantleUIView(_ uiView: KMViewContainer, coordinator: KakaoMapCoordinator) {
@@ -53,25 +50,24 @@ struct KakaoMapView: UIViewRepresentable {
     
 }
 
+
+// Coordinator 패턴으로 MapView에서 사용할 객체들을 생성
 final class KakaoMapCoordinator: NSObject, MapControllerDelegate, GuiEventDelegate {
     
     var first: Bool
     var controller: KMController?
     var container: KMViewContainer?
-    private var currentLocation: CLLocationCoordinate2D?
-//    private var pocketmons: [PocketmonDomain]?
     private var viewModel: MapViewModel
+    private var cancellables = Set<AnyCancellable>()
     
-    lazy var poiManager = MapPoiManager(controller: controller, container: container)
-    lazy var polyManager = MapPolylineManager(controller: controller, container: container)
+    private lazy var poiManager = MapPoiManager(controller: controller, container: container)
+    private lazy var polyManager = MapPolylineManager(controller: controller, container: container)
     
-    init(currentLocation: CLLocationCoordinate2D?, viewModel: MapViewModel) {
+    init(viewModel: MapViewModel) {
         self.first = true
-        self.currentLocation = currentLocation
-//        self.pocketmons = pocketmons
         self.viewModel = viewModel
     }
-    
+
     func createController(_ view: KMViewContainer) {
         container = view
         controller = KMController(viewContainer: view)
@@ -81,7 +77,7 @@ final class KakaoMapCoordinator: NSObject, MapControllerDelegate, GuiEventDelega
     func addViews() {
         var defaultPosition = MapPoint(longitude: 127.108678, latitude: 37.402001)
         
-        if let currentLocation {
+        if let currentLocation = viewModel.currentLocation {
             defaultPosition = MapPoint(longitude: currentLocation.longitude, latitude: currentLocation.latitude)
         }
         
@@ -95,15 +91,33 @@ final class KakaoMapCoordinator: NSObject, MapControllerDelegate, GuiEventDelega
         
         view?.viewRect = container!.bounds
         
-        poiManager.setPoi(currentLocation: currentLocation, pokemons: viewModel.pocketmon)
+        poiManager.setPoi(currentLocation: viewModel.currentLocation, pokemons: viewModel.pokemon)
         createSpriteGUI()
+        
+        changeCurrentLocation()
     }
     
     func addViewFailed(_ viewName: String, viewInfoName: String) {
         print("Failed")
     }
     
-    func createSpriteGUI() {
+    // 위치 변경에 따른 Poi와 Polyline 업데이트
+    private func changeCurrentLocation() {
+        viewModel.$currentLocation
+            .sink { completion in
+                if case .failure(let failure) = completion {
+                    print(failure)
+                }
+            } receiveValue: { [weak self] value in
+                guard let self else { return }
+                
+                self.poiManager.setPoi(currentLocation: value, pokemons: self.viewModel.pokemon)
+                self.polyManager.removePolyline()
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func createSpriteGUI() {
         guard let controller else { return }
         guard let mapView = controller.getView("mapview") as? KakaoMap else { return }
         
@@ -124,12 +138,11 @@ final class KakaoMapCoordinator: NSObject, MapControllerDelegate, GuiEventDelega
     
     func guiDidTapped(_ gui: GuiBase, componentName: String) {
         viewModel.input.buttonTapped.send(())
+        
         if let shortRoute = viewModel.shortRoute {
-            polyManager.setPolyline(currentLocation: currentLocation, coords: shortRoute.map { $0.convertToMapPoint() })
+            poiManager.setPoi(currentLocation: viewModel.currentLocation, pokemons: viewModel.pokemon)
+            polyManager.setPolyline(currentLocation: viewModel.currentLocation, coords: shortRoute.map { $0.convertToMapPoint() })
         }
     }
     
 }
-
-
-

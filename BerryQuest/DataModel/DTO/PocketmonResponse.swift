@@ -17,17 +17,13 @@ struct PokemonResponse: Decodable {
 
 extension PokemonResponse {
     
-    func convertToDomain() -> AnyPublisher<PokemonDomain, Error> {
-        return NetworkManager.shared.getData(PokemonRequest.pokemonImage(id: "\(self.id)"))
-            .map { imageData in
-                PokemonDomain(
-                    id: self.id,
-                    name: self.name,
-                    imageData: imageData,
-                    coordinate: self.coordinate.convertToDomain()
-                )
-            }
-            .eraseToAnyPublisher()
+    func convertToDomain() -> PokemonDomain {
+        return PokemonDomain(
+            id: self.id,
+            name: self.name,
+            imageURL: self.imageURL, 
+            coordinate: self.coordinate.convertToDomain()
+        )
     }
     
 }

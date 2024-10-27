@@ -8,49 +8,25 @@
 import Foundation
 import Combine
 
-final class NetworkManager {
+final class PokemonNetworkManager {
     
-    static let shared = NetworkManager()
-    static let decoder = JSONDecoder()
+    // 구체적인 구현 클래스(DataNetworkService, DecodableNetworkService)에 의존하지 않고,
+    // 추상화된 프로토콜(RawDataFetchable, DecodableNetworkService)에 의존하도록 설계
+    // 고수준 모듈은 저수준 모듈에 의존해서는 안된다 DIP의 원칙을 따름
+    private let imageDataNetworkService: RawDataFetchable
+    private let decodableNetworkService: DecodableDataFetchable
     
-    private let session: URLSession
-    private var cancellables = Set<AnyCancellable>()
-    
-    private init(session: URLSession = URLSession.shared) {
-        self.session = session
+    init(imageDataNetworkService: RawDataFetchable, decodableNetworkService: DecodableDataFetchable) {
+        self.imageDataNetworkService = imageDataNetworkService
+        self.decodableNetworkService = decodableNetworkService
     }
     
-}
-
-extension NetworkManager {
-     
-    func getData<D: Decodable>(_ request: HTTPRequestable, response: D.Type) -> AnyPublisher<D, Error> {
-        guard let url = request.asURL() else {
-            return Fail(error: NetworkError.invalidURL)
-                .eraseToAnyPublisher()
-        }
-        
-        return session.dataTaskPublisher(for: url)
-            .mapError {
-                NetworkError.unknownError(description: $0.localizedDescription)
-            }
-            .map(\.data)
-            .decode(type: D.self, decoder: NetworkManager.decoder)
-            .eraseToAnyPublisher()
+    func fetchPokemonData<D: Decodable>(_ request: HTTPRequestable, responseType: D.Type) -> AnyPublisher<D, Error> {
+        return decodableNetworkService.getData(request, response: responseType)
     }
     
-    func getData(_ request: HTTPRequestable) -> AnyPublisher<Data, Error> {
-        guard let url = request.asURL() else {
-            return Fail(error: NetworkError.invalidURL)
-                .eraseToAnyPublisher()
-        }
-        
-        return session.dataTaskPublisher(for: url)
-            .mapError {
-                NetworkError.unknownError(description: $0.localizedDescription)
-            }
-            .map(\.data)
-            .eraseToAnyPublisher()
+    func fetchImageData(_ request: HTTPRequestable) -> AnyPublisher<Data, Error> {
+        return imageDataNetworkService.getData(request)
     }
     
 }

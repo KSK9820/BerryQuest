@@ -14,4 +14,5 @@ struct PokemonInformationDomain: Decodable {
     let coordinate: Coordinate
     let disease: String
     let berry: String
+    var image: Data?
 }

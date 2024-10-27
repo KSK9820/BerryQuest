@@ -18,7 +18,7 @@ struct PokemonListView: View {
                     NavigationLink {
                         NavigationLazyView(PokemonDetailView(id: pokemons[index].id))
                     } label : {
-                        PokemonListContentView(pokemon: $pokemons[index])
+                        PokemonListContentView(viewModel: PokemonListViewModel(pokemon: $pokemons[index]))
                     }
                 }                
             }

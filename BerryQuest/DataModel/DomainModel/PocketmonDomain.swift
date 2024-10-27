@@ -12,8 +12,9 @@ import KakaoMapsSDK
 struct PokemonDomain: Decodable {
     let id: Int
     let name: String
-    let imageData: Data
+    let imageURL: String
     let coordinate: Coordinate
+    var image: Data?
 }
 
 struct Coordinate: Decodable {

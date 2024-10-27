@@ -10,17 +10,20 @@ import Combine
 
 final class PokemonDetailViewModel: ObservableObject {
     
+    @Published var pokemon: PokemonInformationDomain?
+    @Published var pokemonImage: Data?
+    
+    private let networkManager = PokemonNetworkManager(imageDataNetworkService: DataNetworkService(), decodableNetworkService: DecodableNetworkService())
+    private var pokemonId: Int
+    private var cancellables = Set<AnyCancellable>()
+    
     struct Input {
         let viewOnTask = PassthroughSubject<Void, Never>()
+        
     }
     
     var input = Input()
     
-    private var pokemonId: Int
-    private var cancellables = Set<AnyCancellable>()
-    
-    @Published var pokemon: PokemonInformationDomain?
-    @Published var pokemonImage: Data?
     
     init(pokemonId: Int) {
         self.pokemonId = pokemonId
@@ -36,8 +39,7 @@ final class PokemonDetailViewModel: ObservableObject {
     }
     
     private func getPokemonInformation() {
-        NetworkManager.shared
-            .getData(PokemonRequest.pokemon(id: String(pokemonId)), response: PokemonInformationResponse.self)
+        networkManager.fetchPokemonData(PokemonRequest.pokemon(id: String(pokemonId)), responseType: PokemonInformationResponse.self)
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { completion in
@@ -54,8 +56,7 @@ final class PokemonDetailViewModel: ObservableObject {
     }
     
     private func getPokemonImage() {
-        NetworkManager.shared
-            .getData(PokemonRequest.pokemonImage(id: String(pokemonId)))
+        networkManager.fetchImageData(PokemonRequest.pokemonImage(id: String(pokemonId)))
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { completion in

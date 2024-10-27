@@ -45,7 +45,7 @@ struct KakaoMapView: UIViewRepresentable {
     }
     
     static func dismantleUIView(_ uiView: KMViewContainer, coordinator: KakaoMapCoordinator) {
-        coordinator.controller?.resetEngine()
+//        coordinator.controller?.resetEngine()
     }
     
 }

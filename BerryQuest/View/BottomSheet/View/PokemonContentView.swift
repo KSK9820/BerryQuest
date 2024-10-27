@@ -9,17 +9,30 @@ import SwiftUI
 
 struct PokemonListContentView: View {
     
-    @Binding var pokemon: PokemonDomain
+    @ObservedObject var viewModel: PokemonListViewModel
     
     var body: some View {
         HStack {
-            Image(uiImage: UIImage(data: pokemon.imageData) ?? UIImage(systemName: "star")!)
-                .resizable()
-                .frame(width: ContentSize.thumbImage.size.width, height: ContentSize.thumbImage.size.height)
-                .padding()
-            Text(pokemon.name)
+            if let image = viewModel.pokemon.image,
+                let pokemonImage = UIImage(data: image) {
+                Image(uiImage: pokemonImage)
+                    .resizable()
+                    .frame(width: ContentSize.thumbImage.size.width, height: ContentSize.thumbImage.size.height)
+                    .padding()
+            } else {
+                ProgressView()
+                    .frame(width: ContentSize.thumbImage.size.width, height: ContentSize.thumbImage.size.height)
+                    .padding()
+            }
+            Text(viewModel.pokemon.name)
                 .font(.title2)
         }
         .padding()
+        .task {
+            if viewModel.pokemon.image == nil {
+                viewModel.input.viewOnTask.send(())
+            }
+        }
     }
+    
 }

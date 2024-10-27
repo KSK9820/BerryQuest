@@ -17,15 +17,20 @@ struct PokemonDetailView: View {
     
     var body: some View {
         VStack {
-            if let imageData = viewModel.pokemonImage,
-               let pokemon = viewModel.pokemon {
+            if let pokemon = viewModel.pokemon {
                 VStack(alignment: .leading, spacing: 10) {
                     
                     HStack(alignment: .center) {
                         Spacer()
-                        Image(uiImage: UIImage(data: imageData) ?? UIImage(systemName: "star")!)
-                            .resizable()
-                            .frame(width: ContentSize.thumbImage.size.width, height: ContentSize.thumbImage.size.height)
+                        if let image = viewModel.pokemonImage,
+                           let pokemonImage = UIImage(data: image) {
+                            Image(uiImage: pokemonImage)
+                                .resizable()
+                                .frame(width: ContentSize.thumbImage.size.width, height: ContentSize.thumbImage.size.height)
+                        } else {
+                            ProgressView()
+                                .frame(width: ContentSize.thumbImage.size.width, height: ContentSize.thumbImage.size.height)
+                        }
                         Spacer()
                     }
                     .padding(.vertical)

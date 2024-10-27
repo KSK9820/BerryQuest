@@ -11,7 +11,16 @@ import SwiftUI
 
 final class MapViewModel: ObservableObject {
     
+    @Published private (set) var currentLocation: CLLocationCoordinate2D?
+    @Published var pokemon: [PokemonDomain]?
+    @Published private (set) var draw: Bool = false
+    @Published private (set) var shortRoute: [Coordinate]?
+
+
+    private let networkManager = PokemonNetworkManager(imageDataNetworkService: DataNetworkService(), decodableNetworkService: DecodableNetworkService())
     private var locationManager = LocationManager()
+    private var cancellables = Set<AnyCancellable>()
+
     
     struct Input {
         let onAppear = PassthroughSubject<Void, Never>()
@@ -21,54 +30,19 @@ final class MapViewModel: ObservableObject {
     
     var input = Input()
     
-    @Published private (set) var currentLocation: CLLocationCoordinate2D?
-    @Published var pokemon: [PokemonDomain]?
-    @Published private (set) var draw: Bool = false
-    @Published private (set) var shortRoute: [Coordinate]?
-    
-    private var cancellables = Set<AnyCancellable>()
-    
     init() {
-        locationManager.$currentLocation
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.currentLocation, on: self)
-            .store(in: &cancellables)
-        
+        bindLocation()
+        bindInputs()
+        getPokemonData()
+    }
+    
+    private func bindInputs() {
         input.onAppear
             .sink { [weak self] _ in
                 guard let self else { return }
                 
                 self.draw = true
             }
-            .store(in: &cancellables)
-        
-        NetworkManager.shared
-            .getData(PokemonRequest.allPokemons, response: [PokemonResponse].self)
-            .catch { error -> Just<[PokemonResponse]> in
-                print(error)
-                return Just([])
-            }
-            .flatMap { pokemonResponses -> AnyPublisher<[PokemonDomain], Error> in
-                let publishers = pokemonResponses.map { response in
-                    response.convertToDomain()
-                }
-                
-                return Publishers.MergeMany(publishers)
-                    .collect()
-                    .eraseToAnyPublisher()
-            }
-            .receive(on: DispatchQueue.main)
-            .sink(
-                receiveCompletion: { completion in
-                    if case .failure(let failure) = completion {
-                        print(failure)
-                    }
-                }, receiveValue: { [weak self] pokemonDomains in
-                    guard let self else { return }
-                    
-                    self.pokemon = pokemonDomains
-                }
-            )
             .store(in: &cancellables)
         
         input.onDisappear
@@ -88,6 +62,50 @@ final class MapViewModel: ObservableObject {
                 }
             }
             .store(in: &cancellables)
+    }
+    
+    private func bindLocation() {
+        locationManager.$currentLocation
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.currentLocation, on: self)
+            .store(in: &cancellables)
+    }
+    
+    private func getPokemonData() {
+        networkManager.fetchPokemonData(PokemonRequest.allPokemons, responseType: [PokemonResponse].self)
+            .catch { error -> Just<[PokemonResponse]> in
+                print(error)
+                return Just([])
+            }
+            .sink(receiveValue: { [weak self] pokemonDomains in
+                guard let self else { return }
+              
+                self.pokemon = pokemonDomains.map { $0.convertToDomain() }
+               
+                self.getPokemonImageData()
+            })
+            .store(in: &cancellables)
+    }
+    
+    private func getPokemonImageData() {
+        guard let pokemon else { return }
+        
+        pokemon.enumerated().forEach { offset, element in
+            networkManager.fetchImageData(PokemonRequest.pokemonImage(id: String(element.id)))
+                .sink { completion in
+                    if case .failure(let failure) = completion {
+                        print(failure)
+                    }
+                } receiveValue: { [weak self] pokemonData in
+                    guard let self else { return }
+                    
+                    DispatchQueue.main.async {
+                        self.pokemon?[offset].image = pokemonData
+                    }
+                }
+                .store(in: &cancellables)
+        }
+        
     }
     
     private func getShortRoute(_ coordinate: [Coordinate]) {

@@ -48,8 +48,11 @@ final class MapPoiManager {
             var poiStyles = [PoiStyle]()
             for pokemon in pokemons {
                 let pokemonBasicIconStyle = PoiIconStyle(symbol: UIImage(named: "pin_green.png"), anchorPoint: CGPoint(x: 0.5, y: 1.0))
-                let pokemonImageIconStyle = PoiIconStyle(symbol: UIImage(data: pokemon.imageData)?.resize(to: CGSize(width: 30, height: 30)), anchorPoint: CGPoint(x: 0.5, y: 1.0))
                 
+                var pokemonImageIconStyle = pokemonBasicIconStyle
+                if let image = pokemon.image {
+                    pokemonImageIconStyle = PoiIconStyle(symbol: UIImage(data: image)?.resize(to: CGSize(width: 30, height: 30)), anchorPoint: CGPoint(x: 0.5, y: 1.0))
+                }
                 let pokemonBasicPerLevelStyle = PerLevelPoiStyle(iconStyle: pokemonBasicIconStyle, level: 0)
                 let pokemonImagePerLevelStyle = PerLevelPoiStyle(iconStyle: pokemonImageIconStyle, level: 12)
                 
